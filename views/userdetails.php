@@ -1,23 +1,51 @@
 <?php
     include_once("db.php");
     include_once("security.php");
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $action = $_POST["action"];
+        switch ($action) {
+            case "upload":    
+              $upload_path = "C:/dev/Apache24/htdocs/test/files/avatar/";
+              $fileext =  pathinfo($_FILES["photo"] ["name"], PATHINFO_EXTENSION);
+              $upload_file = $upload_path . basename($logged_user . "." . $fileext);
+              if (move_uploaded_file($_FILES['photo']['tmp_name'], $upload_file)) {
+                        $smt = $conn->prepare("update users set picture = :pic where username = :username");
+                        $smt->bindParam("username", $logged_user);
+                        $smt->bindParam("pic", basename($logged_user . "." . $fileext));
+                        $smt->execute();           
+            } else {
+                  echo "¡Hubo un error al subir el archivo";
+              }
+            break;
+            case "update":
+                
+            break;
+        }
+    }
+
+    $sql = "SELECT * FROM users u WHERE u.username = :username";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam("username", $logged_user);
+    $stmt->execute();
+    $user = $stmt->fetch();
+
+
+
 ?><BR><BR>
 <div class="container">
 
   <div class="row align-items-center">
     <div class="col-sm-6 offset-sm-3">
       <div class="row">
-      
-        <form class="form-horizontal" method="POST" enctype="multipart/form-data">
-
-
+        <form class="form-horizontal" method="POST">
           <input type="hidden" name="action" value="update"/>
           <!-- Text input-->
           <div class="form-group">
             <label class="col-md-4 control-label" for="textinput">First Name</label>
             <div class="col-sm-12">
               <input id="firstname" name="firstname" placeholder="Insert your First Name" class="form-control input-md"
-                required="" type="text">
+                required="" type="text" value="<?=$user["name"]?>">
               <span class="help-block"> </span>
             </div>
           </div>
@@ -27,7 +55,7 @@
             <label class="col-md-4 control-label" for="textinput">Last Name</label>
             <div class="col-sm-12">
               <input id="lastname" name="lastname" placeholder="Insert your Last Name" class="form-control input-md"
-                required="" type="text">
+                required="" type="text" value="<?=$user["last_name"]?>">
               <span class="help-block"> </span>
             </div>
           </div>
@@ -37,7 +65,7 @@
             <label class="col-md-4 control-label" for="textinput">Email</label>
             <div class="col-sm-12">
               <input id="email" name="email" placeholder="Insert your Email" class="form-control input-md"
-                required="" type="text">
+                required="" type="text" value="<?=$user["email"]?>">
               <span class="help-block"> </span>
             </div>
           </div>
@@ -47,7 +75,7 @@
             <label class="col-md-4 control-label" for="textinput">Password</label>
             <div class="col-sm-12">
               <input id="confpwd" name="confpwd" placeholder="Insert your Password" class="form-control input-md"
-                required="" type="password">
+                required="" type="password" value="<?=$user["pwd"]?>">
               <span class="help-block"> </span>
             </div>
           </div>
@@ -57,7 +85,7 @@
             <label class="col-md-4 control-label" for="textinput">Confirm Password</label>
             <div class="col-sm-12">
               <input id="confpwd" name="confpwd" placeholder="Confirm your Password" class="form-control input-md"
-                required="" type="password">
+                required="" type="password" value="<?=$user["pwd"]?>">
               <span class="help-block"> </span>
             </div>
           </div>
@@ -83,7 +111,7 @@
               <span class="help-block"> </span>
             </div>
           </div>
-          <img src="" class="img-circle" alt="">
+          <img src="files/avatar/<?=$user["picture"]?>" class="img-circle" alt="">
           <div class="form-group">
             <label class="col-md-4 control-label" for="singlebutton"> </label>
             <div class="col-sm-12">
