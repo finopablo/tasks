@@ -19,7 +19,26 @@
               }
             break;
             case "update":
-                
+              $smt = $conn->prepare("select * from users where username=:username");
+              $smt->bindParam("username", $logged_user);
+              $smt->execute();
+              $data = $smt->fetch();
+
+              $name = isset($_POST["firstname"])?$_POST["firstname"]:$data["name"];
+              $lastname = isset($_POST["lastname"])?$_POST["lastname"]:$data["last_name"];
+              $email = isset($_POST["email"])?$_POST["email"]:$data["email"];
+              $pwd = $data["pwd"];
+              if (isset($_POST["pwd"]) && isset($_POST["pwd"]) && $_POST["pwd"]==$_POST["confpwd"]) {
+                $pwd = $_POST["pwd"];
+              }
+              
+              $smt = $conn->prepare("update users set name=:name, last_name=:lastname, email=:email, pwd=:pwd where username = :username");
+              $smt->bindParam("username", $logged_user);
+              $smt->bindParam("name", $name);
+              $smt->bindParam("lastname", $lastname);
+              $smt->bindParam("email", $email);
+              $smt->bindParam("pwd", $pwd);
+              $smt->execute();
             break;
         }
     }
@@ -74,7 +93,7 @@
           <div class="form-group">
             <label class="col-md-4 control-label" for="textinput">Password</label>
             <div class="col-sm-12">
-              <input id="confpwd" name="confpwd" placeholder="Insert your Password" class="form-control input-md"
+              <input id="pwd" name="pwd" placeholder="Insert your Password" class="form-control input-md"
                 required="" type="password" value="<?=$user["pwd"]?>">
               <span class="help-block"> </span>
             </div>
