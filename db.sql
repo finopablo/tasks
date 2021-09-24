@@ -8,14 +8,11 @@ CREATE TABLE users (
     status enum ('confirmed', 'peding')
 );
 
-ALTER TABLE users ADD picture VARCHAR(1000);
-ALTER TABLE users ADD  email VARCHAR(50);	
-
-
 insert into users values ('admin','admin','Admin','Admin','admin','confirmed');
 insert into users values ('user','1234','Standard','User','user','confirmed');
 
-
+ALTER TABLE users ADD picture VARCHAR(1000);
+ALTER TABLE users ADD email VARCHAR(50);	
 
 CREATE TABLE STATUS( id_status SMALLINT AUTO_INCREMENT PRIMARY KEY, status_name VARCHAR(50));
 INSERT INTO STATUS VALUES (1,'To do'), (2, 'In Progress'), (3, 'Done');
