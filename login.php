@@ -64,6 +64,7 @@
 
 function validate() {
     global $conn;
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") 
     {
                 $validator = new Validator($_POST);
@@ -76,7 +77,7 @@ function validate() {
                     $stmt->bindParam(":username", $_POST["username"]);
                     $stmt->bindParam(":pwd", $_POST["pwd"]);
                     $ok = $stmt->execute();
-                    if ($ok) {
+                   if ($ok) {
                         setupSession($stmt->fetchAll());
                         header("Location:index.php");
                     } else {
