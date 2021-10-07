@@ -1,17 +1,47 @@
-<!doctype html>
-<html>
+<?php
+  include_once("header.php");
+  $tpl->load_file("tasks.html", "mainContent");
+  $sql = "SELECT 
+      t.id_task,
+      cu.name AS creation_user_name,
+      cu.last_name AS creation_user_last_name,
+      s.status_name AS status,
+      s.id_status,
+      t.title,
+      t.description,
+      t.due_date,
+      t.last_update
+  FROM 
+      tasks t 
+      INNER JOIN status s ON t.id_status = s.id_status
+      INNER JOIN users cu ON t.creation_user = cu.username
+      INNER JOIN users au ON t.assigned_user = au.username
+  WHERE 
+      t.assigned_user = :username";
+  $stmt = $conn->prepare($sql);
+  
+  $stmt->bindParam("username", $logged_user);
+  $stmt->execute();
+  $tasks = $stmt->fetchAll();
 
-<head>
-  <title>Prueba de Bootstrap 5</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
-</head>
 
-<body>
-    <?php include_once("header.php"); ?>
-    <?php include_once("views/tasks.php"); ?>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>  
-</body>
-</html>
+  if (count($tasks)>0 ) {
+    $tpl->set_var("NoTaskRows", "");
+    foreach ($tasks as $task) { 
+              $tpl->set_var("id_task",$task["id_task"] );
+              $tpl->set_var("title",$task["title"] );
+              $tpl->set_var("description",$task["description"] );
+              $tpl->set_var("status",$task["status"] );
+              $tpl->set_var("creation_user_name",$task["creation_user_name"]." " .$task["creation_user_last_name"] );
+              $tpl->set_var("due_date",date("d-m-Y", strtotime($task["due_date"])) );
+              $tpl->parse("TaskRow", true);
+    }
+  } else {
+      $tpl->set_var("TaskRow", "");
+      $tpl->parse("NoTaskRows", false);
+  }
+  $tpl->pparse("main", false);
+
+
+
+?>
