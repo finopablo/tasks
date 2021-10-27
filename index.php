@@ -1,4 +1,5 @@
 <?php
+  include_once("security.php");
   include_once("header.php");
   $tpl->load_file("tasks.html", "mainContent");
   $sql = "SELECT 
@@ -20,7 +21,7 @@
       t.assigned_user = :username";
   $stmt = $conn->prepare($sql);
   
-  $stmt->bindParam("username", $logged_user);
+  $stmt->bindParam("username", $logged_user->username);
   $stmt->execute();
   $tasks = $stmt->fetchAll();
 
