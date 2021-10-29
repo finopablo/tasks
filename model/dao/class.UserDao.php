@@ -20,6 +20,21 @@
         }
 
 
+        public function getUserByUsername($username) {
+
+            $stmt = $this->connection->prepare("SELECT * FROM users where username = :username");
+            $stmt->bindParam(":username", $username);
+            $ok = $stmt->execute();
+
+            if (($ok) && ($stmt->rowCount() == 1)) {
+                $row = $stmt->fetch();
+                return $this->getUser($row);
+            } else {
+                return null;
+            }        
+        }
+
+
         private function getUser($row)  {           
             return new User($row["username"],$row["name"],$row["last_name"],$row["user_type"],$row["status"],$row["email"],$row["picture"]);
         }
