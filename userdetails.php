@@ -1,4 +1,5 @@
 <?php
+  include_once("security.php");
   include_once("header.php");
   $tpl->load_file("userdetails/userdetails.html", "mainContent");
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -10,8 +11,8 @@
           $upload_file = $upload_path . basename($logged_user . "." . $fileext);
           if (move_uploaded_file($_FILES['photo']['tmp_name'], $upload_file)) {
                     $smt = $conn->prepare("update users set picture = :pic where username = :username");
-                    $smt->bindParam("username", $logged_user);
-                    $smt->bindParam("pic", basename($logged_user . "." . $fileext));
+                    $smt->bindParam("username", $logged_user->username);
+                    $smt->bindParam("pic", basename($logged_user->username . "." . $fileext));
                     $smt->execute();           
         } else {
               echo "¡Hubo un error al subir el archivo";
@@ -19,7 +20,7 @@
         break;
         case "update":
           $smt = $conn->prepare("select * from users where username=:username");
-          $smt->bindParam("username", $logged_user);
+          $smt->bindParam("username", $logged_user->username);
           $smt->execute();
           $data = $smt->fetch();
 
@@ -32,7 +33,7 @@
           }
           
           $smt = $conn->prepare("update users set name=:name, last_name=:lastname, email=:email, pwd=:pwd where username = :username");
-          $smt->bindParam("username", $logged_user);
+          $smt->bindParam("username", $logged_user->username);
           $smt->bindParam("name", $name);
           $smt->bindParam("lastname", $lastname);
           $smt->bindParam("email", $email);
@@ -44,7 +45,7 @@
 
 $sql = "SELECT * FROM users u WHERE u.username = :username";
 $stmt = $conn->prepare($sql);
-$stmt->bindParam("username", $logged_user);
+$stmt->bindParam("username", $logged_user->username);
 $stmt->execute();
 $user = $stmt->fetch();
 
