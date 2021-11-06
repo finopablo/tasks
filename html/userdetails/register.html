@@ -1,0 +1,114 @@
+<BR><BR>
+<div class="container">
+
+    <div class="row align-items-center">
+        <div class="col-sm-6 offset-sm-3">
+            <div class="row">
+                <form class="form-horizontal" method="POST">
+                    <input type="hidden" name="action" value="save" />
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">First Name</label>
+                        <div class="col-sm-12">
+                            <input id="firstname" name="firstname" placeholder="Insert your First Name"
+                                class="form-control input-md" required="" type="text" value="{name}">
+                            <span class="help-block"> </span>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Last Name</label>
+                        <div class="col-sm-12">
+                            <input id="lastname" name="lastname" placeholder="Insert your Last Name"
+                                class="form-control input-md" required="" type="text" value="{last_name}">
+                            <span class="help-block"> </span>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Email</label>
+                        <div class="col-sm-12">
+                            <input id="email" name="email" placeholder="Insert your Email" class="form-control input-md"
+                                required="" type="text" value="{email}" onfocusout ="javascript : validateUser();">
+                            <span class="help-block">{emailExists}</span>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Password</label>
+                        <div class="col-sm-12">
+                            <input id="pwd" name="pwd" placeholder="Insert your Password" class="form-control input-md"
+                                required="" type="password" value="{pwd}">
+                            <span class="help-block"> </span>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Confirm Password</label>
+                        <div class="col-sm-12">
+                            <input id="confpwd" name="confpwd" placeholder="Confirm your Password"
+                                class="form-control input-md" required="" type="password" value="{pwd}">
+                            <span class="help-block"> </span>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Pais</label>
+                        <div class="col-sm-12">
+                            <select name="country" lass="form-select" aria-label="Default select example" onChange="javascript: changeCountry();">
+                                <!--BeginCountry-->
+                                <option value="{countryCode}" {countrySelected}>{countryName}</option>
+                                <!--EndCountry-->
+                            </select>
+                            <span class="help-block"> </span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Ciudad</label>
+                        <div class="col-sm-12">
+                            <select name="city" class="form-select" aria-label="Default select example">
+                                <!--BeginCity-->
+                                <option value="{idCity}">{cityName}</option>
+                                <!--EndCity-->
+                            </select>
+                            <span class="help-block"> </span>
+                        </div>
+                    </div>
+
+
+
+
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="singlebutton"> </label>
+                        <div class="col-sm-12">
+                            <button id="btnSend" name="btnSend" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+
+    function changeCountry() {
+        document.forms[0]["action"].value = "changeCountry";
+        document.forms[0].submit();
+    }
+
+    function validateUser() {
+        document.forms[0]["action"].value = "validateUser";
+        document.forms[0].submit();
+    }
+
+</script>

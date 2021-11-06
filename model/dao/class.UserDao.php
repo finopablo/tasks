@@ -20,6 +20,20 @@
         }
 
 
+        public function getUserByEmail($email) {
+            $stmt = $this->connection->prepare("SELECT * FROM users where email = :email");
+            $stmt->bindParam(":email", $email);
+            $ok = $stmt->execute();
+
+            if (($ok) && ($stmt->rowCount() == 1)) {
+                $row = $stmt->fetch();
+                return $this->getUser($row);
+            } else {
+                return null;
+            }        
+        }
+        
+
         public function getUserByUsername($username) {
 
             $stmt = $this->connection->prepare("SELECT * FROM users where username = :username");

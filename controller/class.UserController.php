@@ -11,6 +11,12 @@
             $this-> userDao = $userDao;
         }
 
+
+        public function existsEmail($email) {
+            $user = $this->userDao->getUserByEmail($email);
+            return (isset($user));
+        }
+
         public function login($username, $password) {
 
 

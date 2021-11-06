@@ -8,11 +8,10 @@
             $this->tpl->pparse("main", false);   
         }
 
-
         private function error($error) {
             return "<div class='alert alert-danger'> $error </span>"; 
         }
     
     }
 
-?>\
+?>

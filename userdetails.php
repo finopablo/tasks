@@ -1,7 +1,7 @@
 <?php
   include_once("security.php");
-  include_once("header.php");
-  $tpl->load_file("userdetails/userdetails.html", "mainContent");
+  include_once("config.php");
+  $tpl->load_file("userdetails/userdetails.html", "main");
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $action = $_POST["action"];
     switch ($action) {

@@ -1,0 +1,138 @@
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<BR><BR>
+<div class="container">
+
+    <div class="row align-items-center">
+        <div class="col-sm-6 offset-sm-3">
+            <div class="row">
+                <form class="form-horizontal" method="POST">
+                    <input type="hidden" name="action" value="save" />
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">First Name</label>
+                        <div class="col-sm-12">
+                            <input id="firstname" name="firstname" placeholder="Insert your First Name"
+                                class="form-control input-md" required="" type="text" value="{name}">
+                            <span class="help-block"> </span>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Last Name</label>
+                        <div class="col-sm-12">
+                            <input id="lastname" name="lastname" placeholder="Insert your Last Name"
+                                class="form-control input-md" required="" type="text" value="{last_name}">
+                            <span class="help-block"> </span>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Email</label>
+                        <div class="col-sm-12">
+                            <input id="email" name="email" placeholder="Insert your Email" class="form-control input-md"
+                                required="" type="text" value="{email}">
+                            <span class="help-block"> </span>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Password</label>
+                        <div class="col-sm-12">
+                            <input id="pwd" name="pwd" placeholder="Insert your Password" class="form-control input-md"
+                                required="" type="password" value="{pwd}">
+                            <span class="help-block"> </span>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Confirm Password</label>
+                        <div class="col-sm-12">
+                            <input id="confpwd" name="confpwd" placeholder="Confirm your Password"
+                                class="form-control input-md" required="" type="password" value="{pwd}">
+                            <span class="help-block"> </span>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Pais</label>
+                        <div class="col-sm-12">
+                            <select id="country" name="country" lass="form-select" aria-label="Default select example">
+                                <!--BeginCountry-->
+                                <option value="{countryCode}" {countrySelected}>{countryName}</option>
+                                <!--EndCountry-->
+                            </select>
+                            <span class="help-block"> </span>
+                        </div>
+                    </div>
+
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Ciudad</label>
+                        <div class="col-sm-12">
+
+                            <select id="city" name="city" class="form-select" aria-label="Default select example">
+                                <!--BeginCity-->
+                                <option value="{idCity}">{cityName}</option>
+                                <!--EndCity-->
+                            </select>
+                            <div id="loading" style="display:none"> Loading ...</div>
+                            <span class="help-block"> </span>
+                        </div>
+                    </div>
+
+
+
+
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="singlebutton"> </label>
+                        <div class="col-sm-12">
+                            <button id="btnSend" name="btnSend" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+
+        $("#email").bind("focusout", function (e) {
+            debugger;
+            $.post("user-service.php", {
+                action: "validateEmail", email: $(e.target).val() } , function(data) {
+                    if (data.exists) {
+                        alert("El ususario ya existe seleccione otro");
+                    }
+                }
+            );
+        });
+
+        $("#country").change(function (e) {
+            $("#loading").show();
+            $("#city").hide().empty();
+            $.get("city-service.php", { country: $("#country").val() }, function (data) {
+                data.forEach(element => {
+                    $("#city").append("<option value='" + element.idCity + "'>" + element.cityName + "</option>");
+                });
+                $("#city").show();
+                $("#loading").hide();
+            });
+
+
+        });
+    });
+</script>

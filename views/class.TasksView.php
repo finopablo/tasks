@@ -4,6 +4,7 @@
     include_once("class.BaseView.php");
     class TasksView extends BaseView {
         public function show($tasks) {
+            $this->tpl->load_file("tasks.html", "main");
             if (count($tasks)>0 ) {
                 $this->tpl->set_var("NoTaskRows", "");
                 foreach ($tasks as $task) { 

@@ -1,4 +1,5 @@
 <?php
+        $completePage = true;
         include_once("config.php");
         include_once("views/class.LoginView.php");
         $loginView = new LoginView($tpl);

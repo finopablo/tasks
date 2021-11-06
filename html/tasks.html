@@ -5,10 +5,10 @@
         var tasks = document.getElementsByName("selectedTask");
         var selectedTask;
 
-        for(var i = 0; i < tasks.length; i++) {
-             if(tasks[i].checked) {
-                    selectedTask  = tasks[i].value;
-             }
+        for (var i = 0; i < tasks.length; i++) {
+            if (tasks[i].checked) {
+                selectedTask = tasks[i].value;
+            }
         }
         frm["task_id"].value = selectedTask;
         frm.action = "remove.php";
@@ -16,7 +16,6 @@
         frm.submit();
     }
 </script>
-
 <div class="container-fluid">
     <div class="row "> &nbsp;</div>
     <div class="row">
@@ -37,7 +36,8 @@
                     <tbody>
                         <!--BeginTaskRow-->
                         <tr class="table text-center ">
-                            <td class="align-center align-middle"> <input class="form-check-input" type="radio" name="selectedTask" id="selectedTask" value={id_task}> </td>
+                            <td class="align-center align-middle"> <input class="form-check-input" type="radio"
+                                    name="selectedTask" id="selectedTask" value={id_task}> </td>
                             <td>
                                 {id_task}
                             </td>
@@ -59,22 +59,23 @@
                         </tr>
                         <!--EndTaskRow-->
 
-                          <!--BeginNoTaskRows-->
-                          <tr class="table text-center ">
+                        <!--BeginNoTaskRows-->
+                        <tr class="table text-center ">
                             <td colspan="7"> El usuario no tiene tareas asignadas </td>
-                          </tr>
+                        </tr>
                         <!--EndNoTaskRows-->
-                       </tbody>
+                    </tbody>
                 </table>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-1 offset-sm-4">
-                <div class="d-flex p-2 align-items-center"><button type="button" class="btn btn-primary"> Assign </button> </div>
-            </div>   
+                <div class="d-flex p-2 align-items-center"><button type="button" class="btn btn-primary"> Assign
+                    </button> </div>
+            </div>
             <div class="col-sm-1">
                 <div class="d-flex p-2 align-items-center">
-                    <button type="button" class="btn btn-primary" >New Status</button>
+                    <button type="button" class="btn btn-primary">New Status</button>
                 </div>
             </div>
             <div class="col-sm-1">
@@ -84,10 +85,10 @@
             </div>
             <div class="col-sm-1">
                 <div class="d-flex p-2 align-items-center">
-                    <form mehtod="POST" id="frm-remove" name="frm-remove"> <input type="hidden" value="" name="task_id"/> </form>    
+                    <form mehtod="POST" id="frm-remove" name="frm-remove"> <input type="hidden" value=""
+                            name="task_id" /> </form>
                     <button type="button" class="btn btn-primary" onclick="javascript:remove();"> Remove </button>
                 </div>
-            </div>
             </div>
         </div>
     </div>
