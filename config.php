@@ -1,4 +1,5 @@
 <?php
+    
     include_once("db.php");
     include_once("lib/class.Templates.php");
     include_once("model/dao/class.UserDao.php");
