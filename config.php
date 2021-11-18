@@ -1,14 +1,14 @@
 <?php
-    
-    include_once("db.php");
-    include_once("lib/class.Templates.php");
-    include_once("model/dao/class.UserDao.php");
-    include_once("model/dao/class.TaskDao.php");
-    include_once("model/dao/class.GeoDao.php");
-    include_once("controller/class.UserController.php");
-    include_once("controller/class.TaskController.php");
-    include_once("controller/class.GeoController.php");
-    $tpl = new Templates("./html");
+ 
+    include_once(dirname(__FILE__) ."/lib/class.Templates.php");
+    include_once(dirname(__FILE__) ."/db.php");
+    include_once(dirname(__FILE__) ."/model/dao/class.UserDao.php");
+    include_once(dirname(__FILE__) ."/model/dao/class.TaskDao.php");
+    include_once(dirname(__FILE__) ."/model/dao/class.GeoDao.php");
+    include_once(dirname(__FILE__) ."/controller/class.UserController.php");
+    include_once(dirname(__FILE__) ."/controller/class.TaskController.php");
+    include_once(dirname(__FILE__) ."/controller/class.GeoController.php");
+    $tpl = new Templates(dirname(__FILE__) . "./html");
     if (isset($completePage) && ($completePage)) {
         $tpl->load_file("template.html","main");
     }

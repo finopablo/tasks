@@ -1,8 +1,9 @@
 <?php
 
-    include_once("model/dao/class.Dao.php");
-    include_once("model/dao/class.UserDao.php");
-    include_once("model/class.Task.php");
+    include_once(dirname(__FILE__) . "/class.Dao.php");
+    include_once(dirname(__FILE__) ."/../class.Task.php");
+    include_once(dirname(__FILE__) ."/class.UserDao.php");
+
 
     class TaskDao extends Dao {
         private $userDao;

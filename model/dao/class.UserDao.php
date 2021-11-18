@@ -1,6 +1,6 @@
 <?php
-    include_once("model/class.User.php");
-    include_once("model/dao/class.Dao.php");
+    include_once(dirname(__FILE__) ."/../class.User.php");
+    include_once(dirname(__FILE__) ."/class.Dao.php");
 
     class UserDao extends Dao {
 

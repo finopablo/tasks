@@ -1,8 +1,8 @@
 <?php
 
-    include_once("model/dao/class.Dao.php");
-    include_once("model/class.Country.php");
-    include_once("model/class.City.php");
+    include_once(dirname(__FILE__) . "/class.Dao.php");
+    include_once(dirname(__FILE__) ."/../class.Country.php");
+    include_once(dirname(__FILE__) ."/../class.City.php");
 
     class GeoDao extends Dao {
         private $userDao;

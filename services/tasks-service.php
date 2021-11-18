@@ -1,6 +1,6 @@
 <?php
     error_reporting(0);
-    include_once("config.php");
+    include_once("../config.php");
     include_once("model/class.Task.php");
     $action = $_SERVER["REQUEST_METHOD"];
     header('Content-type: application/json');

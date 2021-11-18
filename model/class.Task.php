@@ -1,6 +1,6 @@
 <?php
 
-include_once("model/class.Model.php");
+include_once(dirname(__FILE__) ."/class.Model.php");
 
 class Task extends Model {
 

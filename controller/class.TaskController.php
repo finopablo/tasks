@@ -1,7 +1,7 @@
 <?php   
-    include_once("model/dao/class.TaskDao.php");
-    include_once("lib/Validator.php");
-    include_once("exceptions/class.ValidationException.php");
+    include_once(dirname(__FILE__) ."/../model/dao/class.TaskDao.php");
+    include_once(dirname(__FILE__) ."/../lib/Validator.php");
+    include_once(dirname(__FILE__) ."/../exceptions/class.ValidationException.php");
 
     class TaskController {
 
